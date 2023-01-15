@@ -17,7 +17,7 @@ void main()
 	writeln("> What's the starting card?");
 	auto top = parseToCard(readln());
 
-	auto b = new Bot(players+1, ourCards, turn, top);
+	Bot b = new Bot(players+1, ourCards, turn, top);
 
 	while (!b.finalRound) {
 		if (b.getTurn() == 0) {
@@ -81,7 +81,7 @@ class Bot {
 	}
 
 	public void printCards() {
-		writefln("my cards were: %s, %s, %s, %s", cards[0][0], cards[0][1], cards[0][2], cards[0][3]);
+		writefln("my cards were: %(%s, %)", cards[0]);
 	}
 
 	public void waitTurn(Card newTop) {
@@ -298,7 +298,7 @@ class Bot {
 }
 
 public Card parseToCard(string input) {
-	final switch (chop(input)) {
+	switch (chop(input)) {
 		case "0": return Card.ZERO;
 		case "1": return Card.ONE;
 		case "2": return Card.TWO;
@@ -312,5 +312,6 @@ public Card parseToCard(string input) {
 		case "S", "s": return Card.SWAP;
 		case "L", "l": return Card.LOOK;
 		case "D", "d": return Card.DRAW;
+		default: return Card.UNKNOWN;
 	}
 }
